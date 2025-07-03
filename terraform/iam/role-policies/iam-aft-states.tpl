@@ -4,7 +4,28 @@
         {
             "Effect": "Allow",
             "Action": "states:Start*",
-            "Resource": "${account_provisioning_customizations_sfn_arn}"
+            "Resource": [
+                "${alternate_contacts_customizations_sfn_arn}"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "events:PutTargets",
+                "events:PutRule",
+                "events:DescribeRule"
+            ],
+            "Resource": [
+                "arn:aws:events:${data_aws_region}:${data_aws_account_id}:rule/StepFunctionsGetEventsForStepFunctionsExecutionRule"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "states:DescribeExecution",
+                "states:StopExecution"
+            ],
+            "Resource": "*"
         }
     ]
 }
